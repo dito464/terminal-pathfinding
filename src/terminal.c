@@ -10,7 +10,7 @@
 #include "init.h"
 #include "input.h"
 
-struct Config Con;
+Config Con;
 
 void die(char *s) {
     write(STDOUT_FILENO, "\x1b[2J", 4); // Clear screen.

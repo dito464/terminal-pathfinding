@@ -12,25 +12,31 @@ enum CellTypes {
     EMPTY
 };  
 
-struct Cell {
+typedef Cell {
     enum CellTypes type;
     int x, y;
     char ch;
-};
+} Cell;
 
-struct Grid {
+typedef struct Grid {
     int rows, cols;
-    struct Cell **cells;
+    Cell **cells;
 
-    struct Cell *start_cell;
-    struct Cell *end_cell;
-};
+    Cell *start_cell;
+    Cell *end_cell;
 
-extern struct Grid *g;
+    
+    return
+} Grid;
+
+extern Grid *g;
 
 void drawPathfindingVisualizer();
 void drawWelcomeScreen();
-void drawGrid(struct abuf *ab);
-void drawWelcomeRows(struct abuf *ab);
+void drawGrid(abuf *ab);
+void drawWelcomeRows(abuf *ab);
+int getGridIndex(Grid* grid, int row, int column){
+    return Grid->cols * row + column;
+}
 
 #endif

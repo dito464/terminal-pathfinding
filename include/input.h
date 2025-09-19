@@ -14,7 +14,7 @@ enum editorKey {
 
 void dashMoveCursor(int key);
 void dashProcessKeypress();
-void handleSpacePress(struct Cell *curr_cell);
-void handleRPress(struct Cell *curr_cell);
+void handleSpacePress(Cell *curr_cell);
+void handleRPress(Cell *curr_cell);
 
 #endif

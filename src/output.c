@@ -13,7 +13,7 @@ void drawWelcomeScreen() {
     Con.app_state = STATE_WELCOME;
 
     // Define abuf for this welcome menu.
-    struct abuf wel_ab = ABUF_INIT;
+    abuf wel_ab = ABUF_INIT;
 
     abAppend(&wel_ab, "\x1b[?25l", 6);
     abAppend(&wel_ab, "\x1b[H", 4);
@@ -38,7 +38,7 @@ void drawPathfindingVisualizer() {
     Con.app_state = STATE_VISUALIZATION;
 
     // Perhaps make this refresh grid function instead then have seperate function for drawing welcome menu.
-    struct abuf vis_ab = ABUF_INIT; // hmmm could prob be in the init section
+    abuf vis_ab = ABUF_INIT; // hmmm could prob be in the init section
 
     abAppend(&vis_ab, "\x1b[?25l", 6);
     abAppend(&vis_ab, "\x1b[H", 4);
@@ -59,7 +59,7 @@ void drawPathfindingVisualizer() {
     abFree(&vis_ab);
 }
 
-void drawGrid(struct abuf *ab) {
+void drawGrid(abuf *ab) {
     
     /* Loop through the Cells in the row pointers and append their color and char to abuf. */
     
@@ -69,7 +69,7 @@ void drawGrid(struct abuf *ab) {
         for (x = 0; x < g->cols; x++) {
 
             // Current Cell
-            struct Cell *c = &g->cells[y][x];
+            Cell *c = &g->cells[getGridIndex(g, x, y)];
 
             switch (c->type) {
                 case START:
@@ -99,7 +99,7 @@ void drawGrid(struct abuf *ab) {
     }
 }
 
-void drawWelcomeRows(struct abuf *ab) {
+void drawWelcomeRows(abuf *ab) {
 
     int voffset = Con.screenrows / 3;
 

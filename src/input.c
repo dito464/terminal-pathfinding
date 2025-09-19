@@ -36,7 +36,7 @@ void dashMoveCursor(int key) {
 void dashProcessKeypress() {
     int c = dashReadKey();
 
-    struct Cell *curr_cell = &g->cells[Con.cy][Con.cx];
+    Cell *curr_cell = &g->cells[getGridIndex(g, Con.cx, Con.cy)];
 
 
 
@@ -80,7 +80,7 @@ void dashProcessKeypress() {
 
 }
 
-void handleSpacePress(struct Cell *curr_cell) {
+void handleSpacePress(Cell *curr_cell) {
     /* Handles a space press, by updating start and end cells and then barrier cells in that order. */
 
     // If no start cell, init one.
@@ -110,7 +110,7 @@ void handleSpacePress(struct Cell *curr_cell) {
     
 }
 
-void handleRPress(struct Cell *curr_cell) {
+void handleRPress(Cell *curr_cell) {
     /* Handles an r press, by updating start and end cells and then barrier cells in that order. */
 
     if (curr_cell->type == START) {

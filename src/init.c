@@ -5,7 +5,7 @@
 #include "init.h"
 #include "output.h"
 
-struct Grid *g = NULL;
+Grid *g = NULL;
 
 
 void init() {
@@ -25,8 +25,8 @@ void init() {
 	
 }
 
-struct Grid* initGrid(struct Grid *g, int rows, int cols) {
-	g = malloc(sizeof(struct Grid));
+Grid* initGrid(Grid *g, int rows, int cols) {
+	g = malloc(sizeof(Grid));
 	if (!g) die("Couldn't allocate memory for grid of terminals size.");
 
 	// Allocate the rows and cols.
@@ -34,27 +34,23 @@ struct Grid* initGrid(struct Grid *g, int rows, int cols) {
 	g->cols = cols;
 
 	// Allocate memory for an array of row pointers, sized for rows
-	g->cells = malloc(sizeof(struct Cell*) * rows);
+	g->cells = malloc(sizeof (Cell*) * rows * cols);
 	if (!g->cells) die("g->cells not allocated.");
 
 	// Lord forgive me.
 	for (int y = 0; y < rows; y++) {
-		// Allocate memory for a row of cells, sized for cols
-		g->cells[y] = malloc(sizeof(struct Cell) * cols);
-		if (!g->cells[y]) die("g->cells[y] not allocated");
-
 		for (int x = 0; x < cols; x++) {
 
 			// Make terminal edges borders by default.
 			if (y == 0 || x == 0 || y == Con.screenrows - 1 || x == Con.screencols - 1) {
 				// Don't need to init .x .y here as we won't change them ever.
-				g->cells[y][x].type = PERM_BARRIER;
-				g->cells[y][x].ch = '#';
+				g->cells[getGridIndex(g, x, y)].type = PERM_BARRIER;
+				g->cells[getGridIndex(g, x, y)].ch = '#';
 			} else {
-				g->cells[y][x].type = EMPTY;
-				g->cells[y][x].x = x;
-				g->cells[y][x].y = y;
-				g->cells[y][x].ch = ' ';
+				g->cells[[getGridIndex(g, x, y)]].type = EMPTY;
+				g->cells[[getGridIndex(g, x, y)]].x = x;
+				g->cells[[getGridIndex(g, x, y)]].y = y;
+				g->cells[[getGridIndex(g, x, y)]].ch = ' ';
 			}
 			
 		}
@@ -62,10 +58,7 @@ struct Grid* initGrid(struct Grid *g, int rows, int cols) {
 	return g;
 }
 
-void freeGrid(struct Grid *g) {
-	
-	for (int y = 0; y < g->rows; y++) {
-		free(g->cells[y]);
-	}
+
+void freeGrid(Grid *g) {
 	free(g->cells);
 }

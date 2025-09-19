@@ -3,7 +3,7 @@
 
 #include "abuf.h"
 
-void abAppend(struct abuf *ab, char *s, int len) {
+void abAppend(abuf *ab, char *s, int len) {
     // Get more mem to add len onto the end of &ab.b.
     char *new = realloc(ab->b, ab->len + len);
     if (new == NULL) return;
@@ -14,6 +14,6 @@ void abAppend(struct abuf *ab, char *s, int len) {
     ab->len += len;
 }
 
-void abFree(struct abuf *ab) {
+void abFree(abuf *ab) {
     free(ab->b);
 }

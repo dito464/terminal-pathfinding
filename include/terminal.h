@@ -10,16 +10,16 @@ enum appState {
 	STATE_VISUALIZATION
 };
 
-struct Config {
+typedef struct Config {
     int screenrows;
     int screencols;
     int cx, cy;
 
     enum appState app_state;
     struct termios termiosOrig;
-};
+} Config;
 
-extern struct Config Con;
+extern Config Con;
 
 void die(char *s);
 void disableRawMode();

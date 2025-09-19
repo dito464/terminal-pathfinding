@@ -3,12 +3,12 @@
 
 #define ABUF_INIT {NULL, 0}
 
-struct abuf {
+typedef struct abuf {
     char *b;
     int len;
-};
+} abuf;
 
-void abAppend(struct abuf *ab, char *s, int len);
-void abFree(struct abuf *ab);
+void abAppend(abuf *ab, char *s, int len);
+void abFree(abuf *ab);
 
 #endif
